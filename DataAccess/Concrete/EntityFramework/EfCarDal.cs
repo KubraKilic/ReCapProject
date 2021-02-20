@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,49 +11,57 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, ReCapDatabaseContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetails()
         {
-            using (ReCapDatabaseContext context=new ReCapDatabaseContext())
+            using (ReCapDatabaseContext context = new ReCapDatabaseContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
+                var result = from car in context.Cars
+                             join brand in context.Brands
+                             on car.BrandId equals brand.BrandId
+                             join color in context.Colors
+                             on car.ColorId equals color.ColorId
+                             select new CarDetailDto
+                             {
+                                 CarId = car.Id,
+                                 CarName = car.CarName,
+                                 BrandName = brand.BrandName,
+                                 ColorName = color.ColorName,
+                                 DailyPrice = car.DailyPrice
+                             };
+                return result.ToList();
+
             }
         }
 
-        public void Delete(Car entity)
+        public void Update2(Car car)
         {
-            using (ReCapDatabaseContext context=new ReCapDatabaseContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (ReCapDatabaseContext context=new ReCapDatabaseContext())
+            using (ReCapDatabaseContext context = new ReCapDatabaseContext())
             {
-                return filter == null ? context.Set<Car>().ToList() : context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public Car GetById(Expression<Func<Car, bool>> filter)
-        {
-            using (ReCapDatabaseContext context=new ReCapDatabaseContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (ReCapDatabaseContext context=new ReCapDatabaseContext())
-            {
-                var updatedEntity = context.Entry(entity);
+                Car updatedCar = context.Set<Car>().SingleOrDefault(c => c.Id == car.Id);
+                if (car.CarName!=null)
+                {
+                    updatedCar.CarName = car.CarName;
+                }
+                if (car.BrandId!=0)
+                {
+                    updatedCar.BrandId = car.BrandId;
+                }
+                if (car.ColorId!=0)
+                {
+                    updatedCar.ColorId = car.ColorId;
+                }
+                if (car.DailyPrice!=0)
+                {
+                    updatedCar.DailyPrice = car.DailyPrice;
+                }
+                if (car.Description!=null)
+                {
+                    updatedCar.Description = car.Description;
+                }
+                var updatedEntity = context.Entry(updatedCar);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
             }
