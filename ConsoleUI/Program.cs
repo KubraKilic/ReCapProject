@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities;
 using Entities.Concrete;
 using System;
 
@@ -13,19 +14,25 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var car1 in carManager.GetProductDetails().Data)
-            {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            UserManager userManager = new UserManager(new EfUserDal());
 
-                Console.WriteLine("CarName:{0} --> BrandName:{1} --> ColorName:{2} --> DailyPrice:{3}", car1.CarName, car1.BrandName, car1.ColorName, car1.DailyPrice);
-            }
-            Console.WriteLine("");
+            Rental rental = new Rental { CarId = 100, CustomerId = 3, RentDate = DateTime.Now.Date };
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine(rentalManager.Add(rental).Message);     
 
-            Console.WriteLine(carManager.Delete(2002).Message);
-            foreach (var car1 in carManager.GetProductDetails().Data)
-            {
-                
-                Console.WriteLine("CarName:{0} --> BrandName:{1} --> ColorName:{2} --> DailyPrice:{3}", car1.CarName, car1.BrandName, car1.ColorName, car1.DailyPrice);
-            }
+            //customerManager.Add(customer);
+            //User user = new User { FirstName = "adsa", LastName = "sdadsad", Email = "dsadsa@gmail.com", Password = "123456" };
+
+            //foreach (var user1 in userManager.GetAll().Data)
+            //{
+
+            //    Console.WriteLine(user1.FirstName);
+            //}
+
+            Console.WriteLine("------------------");
+           // GetAllCustomers(customerManager);
+            //GetCarDetails(carManager);
 
             //GetAllBrands(brandManager);
             //Console.WriteLine();
@@ -53,7 +60,6 @@ namespace ConsoleUI
             //GetCarsByBrandId(carManager);
 
 
-
             //Console.WriteLine();
             //AddCar(carManager);
             //Console.WriteLine();
@@ -69,7 +75,32 @@ namespace ConsoleUI
             //DeleteCar(carManager);
             //GetCarById(carManager);
 
+        }
 
+        private static void GetAllCustomers(CustomerManager customerManager)
+        {
+            foreach (var customer1 in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer1.CompanyName);
+            }
+            Console.WriteLine(customerManager.GetAll().Data.Count);
+        }
+
+        private static void GetCarDetails(CarManager carManager)
+        {
+            foreach (var car1 in carManager.GetCarDetails().Data)
+            {
+
+                Console.WriteLine("CarName:{0} --> BrandName:{1} --> ColorName:{2} --> DailyPrice:{3}", car1.CarName, car1.BrandName, car1.ColorName, car1.DailyPrice);
+            }
+            Console.WriteLine("");
+
+            Console.WriteLine(carManager.Delete(2002).Message);
+            foreach (var car1 in carManager.GetCarDetails().Data)
+            {
+
+                Console.WriteLine("CarName:{0} --> BrandName:{1} --> ColorName:{2} --> DailyPrice:{3}", car1.CarName, car1.BrandName, car1.ColorName, car1.DailyPrice);
+            }
         }
 
         private static void Update2(CarManager carManager)

@@ -19,5 +19,19 @@ namespace Business.Constants
         public static string AllCarsListed = "All cars listed";
         public static string AllBrandsListed = "All brands listed";
         public static string AllColorsListed = "All colors listed";
+        public static string UserAdded = "User added";
+        public static string UserDeleted = "User deleted";
+        public static string AllUsersListed = "All users listed";
+        public static string UserUpdated = "User updated";
+        public static string CustomerAdded = "Customer added";
+        public static string CustomerDeleted = "Customer deleted";
+        public static string AllCustomersListed = "All customers listed";
+        public static string CustomerUpdated = "Customer updated";
+        public static string RentalAdded = "Rental added";
+        public static string RentalDeleted = "Rental deleted";
+        public static string AllRentalsListed = "All rentals listed";
+        public static string RentalUpdated = "Rental updated";
+        public static string ErrorCarReturnDate = "Delivery date has not come";
+        public static string ErrorCar = "Car can not be found";
     }
 }
