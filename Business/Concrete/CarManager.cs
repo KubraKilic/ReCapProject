@@ -72,7 +72,7 @@ namespace Business.Concrete
         public IResult Update2(Car car)
         {
             _carDal.Update2(car);
-            return new SuccessResult(Messages.CarUpdated);
+            return new SuccessResult();
          
         }
     }
