@@ -33,5 +33,11 @@ namespace Business.Constants
         public static string RentalUpdated = "Rental updated";
         public static string ErrorCarReturnDate = "Delivery date has not come";
         public static string ErrorCar = "Car can not be found";
+        public static string CarImageAdded = "Car image added";
+        public static string CarImageDeleted = "Car image deleted";
+        public static string AllCarImagesListed = "All car images listed";
+        public static string CarImageUpdated = "Car image updated";
+        public static string CarImageCountExcededError= "There cannot be more than 5 pictures of a car.";
+        public static string AllCarImagesListedByCarId="All car images listed by car id";
     }
 }

@@ -10,6 +10,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Business.Concrete
@@ -62,9 +63,18 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            var carDetails = _carDal.GetCarDetails();
+            foreach (var car in carDetails)
+            {
+                if (car.ImagePath==null)
+                {
+                    car.ImagePath= Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\WebAPI\Images\logo.jpg");
+                }
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(carDetails);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
