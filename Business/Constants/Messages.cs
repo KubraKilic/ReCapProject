@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -7,7 +9,7 @@ namespace Business.Constants
     public static class Messages
     {
         public static string CarAdded = "Car added";
-        public static string CarNameAndDailyPriceInvalid = "Car Name minimum lenght must be greater than 2 characters and Daily Price must be greater than 0 ";
+        public static string CarNameAndDailyPriceInvalid = "Car Name minimum lenght must be greater than 2 characters and Daily Price must be greater than 0";
         public static string CarDeleted = "Car deleted";
         public static string CarUpdated = "Car Updated";
         public static string BrandAdded = "Brand added";
@@ -37,7 +39,15 @@ namespace Business.Constants
         public static string CarImageDeleted = "Car image deleted";
         public static string AllCarImagesListed = "All car images listed";
         public static string CarImageUpdated = "Car image updated";
-        public static string CarImageCountExcededError= "There cannot be more than 5 pictures of a car.";
-        public static string AllCarImagesListedByCarId="All car images listed by car id";
+        public static string CarImageCountExcededError = "There cannot be more than 5 pictures of a car";
+        public static string AllCarImagesListedByCarId = "All car images listed by car id";
+        public static string AuthorizationDenied = "You don't have authorization";
+        public static string AllClaimsListed = "All claims listed";
+        public static string UserRegistered = "Registered";
+        public static string UserNotFound = "User not found";
+        public static string PasswordError = "Password is incorrect";
+        public static string SuccessfulLogin = "Successful login";
+        public static string UserAlreadyExists = "User available";
+        public static string AccessTokenCreated = "Token created";
     }
 }

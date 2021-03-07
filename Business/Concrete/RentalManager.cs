@@ -41,7 +41,7 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-            _rentalDal.Delete(_rentalDal.GetById(r => r.Id == id));
+            _rentalDal.Delete(_rentalDal.Get(r => r.Id == id));
             return new SuccessResult(Messages.RentalDeleted);
         }
 
@@ -52,7 +52,7 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetById(int id)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.GetById(r=>r.Id==id));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r=>r.Id==id));
         }
 
         public IResult Update(Rental rental)

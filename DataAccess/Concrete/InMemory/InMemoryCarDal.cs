@@ -44,12 +44,12 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
-        public Car GetById(int id)
+        public Car Get(int id)
         {
             return _cars.SingleOrDefault(c => c.Id == id);
         }
 
-        public Car GetById(Expression<Func<Car, bool>> filter)
+        public Car Get(Expression<Func<Car, bool>> filter)
         {
             throw new NotImplementedException();
         }

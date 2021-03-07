@@ -6,7 +6,6 @@ using System.Text;
 namespace Business.Abstract
 {
     public interface IBrandService:IService<Brand>
-    {
-        
+    {    
     }
 }

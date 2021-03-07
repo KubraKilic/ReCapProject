@@ -45,7 +45,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage1)
         {
-            var carImage = _carImageDal.GetById(carImg => carImg.Id == carImage1.Id);
+            var carImage = _carImageDal.Get(carImg => carImg.Id == carImage1.Id);
             carImage.ImagePath = ImageCRUD.Update(file,carImage.ImagePath);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
@@ -54,7 +54,7 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-            var carImage = _carImageDal.GetById(carImg => carImg.Id == id);
+            var carImage = _carImageDal.Get(carImg => carImg.Id == id);
             ImageCRUD.Delete(carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.CarImageDeleted);
@@ -67,7 +67,7 @@ namespace Business.Concrete
 
         public IDataResult<CarImage> GetById(int id)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.GetById(carImg => carImg.CarId == id));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(carImg => carImg.CarId == id));
         }
 
         public IDataResult<List<CarImage>> GetImagesByCarId(int id)
@@ -85,8 +85,5 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
-
-       
-
     }
 }

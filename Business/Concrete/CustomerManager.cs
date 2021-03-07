@@ -26,7 +26,7 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-            _customerDal.Delete(_customerDal.GetById(c => c.UserId == id));
+            _customerDal.Delete(_customerDal.Get(c => c.UserId == id));
             return new SuccessResult(Messages.CustomerDeleted);
         }
 
@@ -37,7 +37,7 @@ namespace Business.Concrete
 
         public IDataResult<Customer> GetById(int id)
         {
-            return new SuccessDataResult<Customer>(_customerDal.GetById(c=>c.UserId==id));
+            return new SuccessDataResult<Customer>(_customerDal.Get(c=>c.UserId==id));
         }
 
         public IResult Update(Customer customer)

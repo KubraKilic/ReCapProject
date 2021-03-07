@@ -24,7 +24,7 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-            _colorDal.Delete(_colorDal.GetById(c=>c.ColorId==id));
+            _colorDal.Delete(_colorDal.Get(c=>c.ColorId==id));
             return new SuccessResult(Messages.ColorDeleted);
         }
 
@@ -35,7 +35,7 @@ namespace Business.Concrete
 
         public IDataResult<Color> GetById(int id)
         {
-            return new SuccessDataResult<Color>(_colorDal.GetById(c => c.ColorId == id));
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == id));
         }
 
         public IResult Update(Color color)
