@@ -47,7 +47,9 @@ namespace Business.Constants
         public static string UserNotFound = "User not found";
         public static string PasswordError = "Password is incorrect";
         public static string SuccessfulLogin = "Successful login";
-        public static string UserAlreadyExists = "User available";
+        public static string UserAlreadyExists = "User already exists";
         public static string AccessTokenCreated = "Token created";
+        internal static string UsersListed;
+        internal static string UserListedById;
     }
 }
