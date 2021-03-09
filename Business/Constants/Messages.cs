@@ -49,5 +49,6 @@ namespace Business.Constants
         public static string SuccessfulLogin = "Successful login";
         public static string UserAlreadyExists = "User already exists";
         public static string AccessTokenCreated = "Token created";
+        public static string CarUpdatedByTransaction = "Car Updated By Transaction Aspect";
     }
 }
