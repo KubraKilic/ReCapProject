@@ -32,6 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = brand.BrandName,
                                  ColorName = color.ColorName,
                                  DailyPrice = car.DailyPrice,
+                                 ModelYear = car.ModelYear,
                                  ImagePath = imagePath.ImagePath
                              };
                 return result.ToList();
