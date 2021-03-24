@@ -72,6 +72,11 @@ namespace Business.Concrete
             return  new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarDetailById(int carId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.CarId==carId));
+        }
+
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             var carDetails = _carDal.GetCarDetails();
@@ -79,10 +84,20 @@ namespace Business.Concrete
             {
                 if (car.ImagePath==null)
                 {
-                    car.ImagePath= Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\WebAPI\Images\logo.jpg");
+                    car.ImagePath= @"\WebAPI\Resources\Images\logo.jpg";
                 }
             }
             return new SuccessDataResult<List<CarDetailDto>>(carDetails);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c=>c.BrandId==brandId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId));
         }
 
         [CacheRemoveAspect("ICarService.Get")]
@@ -108,5 +123,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarUpdatedByTransaction);
           
         }
+
+
     }
 }

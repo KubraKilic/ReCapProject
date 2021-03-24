@@ -8,46 +8,53 @@ namespace Core.Utilities.Images
 {
     public class ImageCRUD
     {
-        public static string Add(IFormFile file)
+        public static string Add(IFormFile imageFile)
         {
+            PathName pathName = new PathName();
             var sourcePath = Path.GetTempFileName();
-            if (file.Length>0)
+            if (imageFile.Length > 0)
             {
-                using (var stream=new FileStream(sourcePath,FileMode.Create))
+                using (var stream = new FileStream(sourcePath, FileMode.Create))
                 {
-                    file.CopyTo(stream);
+                    imageFile.CopyTo(stream);
                 }
             }
-            var result = NewPath(file);
+            var result = newPath(imageFile, pathName);
             File.Move(sourcePath, result);
-            return result;
+            return pathName.Name;
         }
-        public static string Update(IFormFile file,string sourcePath)
+        public static void Delete(string path)
         {
-            var updatedPath = NewPath(file);
-            if (sourcePath.Length>0)
+            File.Delete(path);
+        }
+        public static string Update(IFormFile imageFile, string sourcePath)
+        {
+            PathName pathName = new PathName();
+            var result = newPath(imageFile, pathName);
+            if (sourcePath.Length > 0)
             {
-                using (var stream=new FileStream(updatedPath,FileMode.Create))
+                using (var stream = new FileStream(result, FileMode.Create))
                 {
-                    file.CopyTo(stream);
+                    imageFile.CopyTo(stream);
                 }
             }
             File.Delete(sourcePath);
-            return updatedPath;
+            return pathName.Name;
         }
-
-        public static void Delete(string imagePath)
+        public static string newPath(IFormFile imageFile, PathName pathName)
         {
-            File.Delete(imagePath);
-        }
-        public static string NewPath(IFormFile file) 
-        {
-            FileInfo fileInfo = new FileInfo(file.FileName); 
-            string fileExtension = fileInfo.Extension;
-            var newImageName = Guid.NewGuid().ToString() + "_" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + fileExtension;
-            string newPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\WebAPI\Images");
-            string result = $@"{newPath}\{newImageName}";
+            FileInfo imageFileInfo = new FileInfo(imageFile.FileName);
+            string imageFileExtension = imageFileInfo.Extension;
+            var newPath = Guid.NewGuid().ToString()
+               + "-" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + imageFileExtension;
+            string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()) + @"\WebAPI\Resources\Images");
+            string result = $@"{path}\{newPath}";
+            pathName.Name = @"\Resources\Images\" + newPath;
             return result;
+        }
+        public class PathName
+        {
+            public string Name { get; set; }
         }
     }
 }
